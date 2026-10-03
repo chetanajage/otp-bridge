@@ -20,6 +20,13 @@ Pehle PC (Windows) setup karo, phir phone (Android). Total 10 minute lagenge.
 - **Bina Git ke:** https://github.com/chetanajage/otp-bridge kholo → hara **Code** button → **Download ZIP** →
   ZIP pe right-click → **Extract All**.
 
+> **ZIP download kiya hai?** Extract karne ke baad folder mein PowerShell kholo (folder mein khali jagah pe
+> Shift + right-click → "Open PowerShell window here") aur ye chalao, warna Windows files block karega:
+> ```powershell
+> Get-ChildItem -Recurse | Unblock-File
+> ```
+> Git se clone kiya hai to iski zaroorat nahi.
+
 **Step 2: `setup.bat` pe double-click karo.**
 Repo folder (`Documents\otp-bridge`) kholo aur `setup.bat` pe double-click karo.
 - "Windows protected your PC" aaye to **More info → Run anyway**.
@@ -109,6 +116,7 @@ OTP SMS aate hi PC pe popup aata hai aur OTP clipboard pe copy ho jata hai.
 ## Problem aaye to
 | Problem | Fix |
 |---|---|
+| "Smart App Control blocked a file" | Pehle files unblock karo (Step 1 ka note) ya Git se clone karo. Phir bhi block ho to: Windows Security → App & browser control → Smart App Control settings → **Off** |
 | Test OTP pe "Couldn't reach" | Same Wi-Fi? PC app tray mein chal raha hai? Firewall: Windows Security → Firewall → Allow an app → OtpBridge (Private ✓) |
 | Real OTP nahi aata, test aata hai | Phone pe Autostart / battery "No restrictions" set karo |
 | "clocks differ" message | Phone aur PC dono pe automatic time on karo |

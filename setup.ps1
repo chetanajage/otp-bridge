@@ -38,6 +38,13 @@ Write-Host "==============================================" -ForegroundColor Cya
 Write-Host "        OTP Bridge setup (Windows)" -ForegroundColor Cyan
 Write-Host "==============================================" -ForegroundColor Cyan
 
+# Smart App Control (Windows 11) blocks unsigned apps, including the OtpBridge.exe we build here.
+$sacState = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy' -Name VerifiedAndReputablePolicyState -ErrorAction SilentlyContinue).VerifiedAndReputablePolicyState
+if ($sacState -eq 1) {
+    Warn "Smart App Control ON hai. Ye OtpBridge.exe ko block kar sakta hai (exe signed nahi hai)."
+    Warn "Block ho to: Windows Security > App & browser control > Smart App Control settings > Off, phir setup.bat dobara."
+}
+
 if (-not (Test-Path $Project)) {
     Fail "windows\OtpBridge folder nahi mila. setup.bat ko repo folder (otp-bridge) ke andar se hi chalao."
 }
