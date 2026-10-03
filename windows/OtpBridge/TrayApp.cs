@@ -13,13 +13,18 @@ sealed class TrayApp : ApplicationContext
     readonly ToolStripMenuItem _lastItem;
     readonly HotkeyWindow _hotkey = new(Keys.O);
     readonly System.Windows.Forms.Timer _clipboardClear = new() { Interval = 120_000 };
+    readonly RegisteredWaitHandle _showPairingWait;
     OtpServer? _server;
     PairForm? _pairForm;
     string? _lastOtp;
     DateTime _lastAt;
 
-    public TrayApp()
+    public TrayApp(EventWaitHandle showPairing, bool showPairingOnStart)
     {
+        _showPairingWait = ThreadPool.RegisterWaitForSingleObject(
+            showPairing, (_, _) => _ui.Post(_ => ShowPairing(), null), null, Timeout.Infinite, executeOnlyOnce: false);
+        if (Startup.Enabled) Startup.Enabled = true; // rewrite older entries to the current path + --background
+
         _lastItem = new ToolStripMenuItem("No OTP yet") { Enabled = false };
         _lastItem.Click += (_, _) => { if (CurrentOtp() is { } otp) CopyToClipboard(otp); };
         var startupItem = new ToolStripMenuItem("Start with Windows") { CheckOnClick = true, Checked = Startup.Enabled };
@@ -45,11 +50,8 @@ sealed class TrayApp : ApplicationContext
         _clipboardClear.Tick += (_, _) => ClearClipboardIfOtp();
 
         StartServer();
-        if (_config.IsNew)
-        {
-            startupItem.Checked = true;
-            ShowPairing();
-        }
+        if (_config.IsNew) startupItem.Checked = true;
+        if (_config.IsNew || showPairingOnStart) ShowPairing();
         if (!_hotkey.Registered)
             Notify("Ctrl+Shift+O is taken", "Another app uses this hotkey. OTPs will still be copied to the clipboard.");
     }
@@ -134,6 +136,7 @@ sealed class TrayApp : ApplicationContext
 
     protected override void ExitThreadCore()
     {
+        _showPairingWait.Unregister(null);
         _server?.Dispose();
         _hotkey.Dispose();
         _tray.Visible = false;

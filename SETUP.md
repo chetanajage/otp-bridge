@@ -37,7 +37,7 @@ Ek PowerShell window khulegi aur khud ye 6 kaam karegi:
 2. `OtpBridge.exe` build karke `C:\Tools\OtpBridge` mein rakhna
 3. Firewall mein allow karna
 4. Wi-Fi Public ho to poochega "Private kar dein? (Y/n)". Ghar ya office ka Wi-Fi hai to **Y** dabao.
-5. Desktop pe "OTP Bridge" shortcut banana
+5. Desktop pe "OTP Bridge" shortcut banana (baad mein QR dobara dekhna ho to isi pe double-click)
 6. App start karna. Pairing window (QR code) khul jayegi.
 
 Pehli baar 5-10 minute lag sakte hain. Window band mat karna. Kahin laal **XX** error aaye to us window ka
@@ -84,7 +84,7 @@ Firewall sirf Private network pe allow karta hai. Wi-Fi Public pe set ho to phon
 **Step 6: Tray icon dhoondho**
 - App window ke bina background mein chalta hai. Taskbar pe right side **^** (hidden icons) dabao, wahan 🛡 shield icon milega.
 - Hamesha dikhe, iske liye icon ko drag karke taskbar pe chhod do.
-- **Double-click**: pairing window (QR) dobara khulti hai.
+- **Double-click** (tray icon ya desktop ka "OTP Bridge" shortcut): pairing window (QR) dobara khulti hai.
 - **Right-click** menu:
   - *Last OTP*: click karke dobara copy karo
   - *Pair phone…*: QR dikhao / naya phone jodo

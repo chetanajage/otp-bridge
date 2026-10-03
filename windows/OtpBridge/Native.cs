@@ -95,7 +95,7 @@ static class Startup
         set
         {
             using var key = Registry.CurrentUser.CreateSubKey(RunKey);
-            if (value) key.SetValue(Name, $"\"{Environment.ProcessPath}\"");
+            if (value) key.SetValue(Name, $"\"{Environment.ProcessPath}\" {Program.BackgroundArg}");
             else key.DeleteValue(Name, throwOnMissingValue: false);
         }
     }
