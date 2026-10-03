@@ -47,10 +47,14 @@ static class Typer
         var deadline = Environment.TickCount64 + 2000;
         while (Environment.TickCount64 < deadline && new[] { VK_SHIFT, VK_CONTROL, VK_MENU, VK_LWIN, VK_RWIN }.Any(IsDown))
             Thread.Sleep(20);
+        Type(text);
+    });
 
+    public static void Type(string text)
+    {
         var inputs = text.SelectMany(c => new[] { Key(c, 0), Key(c, KEYEVENTF_KEYUP) }).ToArray();
         SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<INPUT>());
-    });
+    }
 
     static bool IsDown(int vk) => (GetAsyncKeyState(vk) & 0x8000) != 0;
 

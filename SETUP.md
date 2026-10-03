@@ -45,7 +45,7 @@ screenshot bhejo.
 
 **Step 3: Phone.** Window ke end mein phone ke steps bhi likhe aayenge. Neeche **Android setup** section dekho.
 APK ka seedha link (phone ke browser mein kholo):
-https://github.com/chetanajage/otp-bridge/releases/download/v0.1.0/OtpBridge.apk
+https://github.com/chetanajage/otp-bridge/releases/latest/download/OtpBridge.apk
 
 **Baad mein update karna ho to:** repo folder mein `git pull` (ZIP wale naya ZIP download karein), phir `setup.bat`
 dobara double-click karo. Pairing waise hi rahegi.
@@ -107,15 +107,21 @@ Firewall sirf Private network pe allow karta hai. Wi-Fi Public pe set ho to phon
 5. **Allow running in background** dabao. Xiaomi/Oppo/Vivo/Realme pe Settings mein OTP Bridge ka **Autostart** bhi on karo.
 
 ## Use
-OTP SMS aate hi PC pe popup aata hai aur OTP clipboard pe copy ho jata hai.
-- `Ctrl+V` se paste karo, ya
-- `Ctrl+Shift+O` dabao, OTP focused field mein type ho jayega (5 min tak).
+**Auto-fill (Mac jaisa):** pehle OTP wale box pe click karo (cursor wahan blink kare), phir OTP mangwao.
+SMS aate hi OTP seedha us box mein type ho jayega, kuch dabana nahi padega.
 
+Auto-fill tabhi hota hai jab cursor kisi **khaali** text box mein ho. Cursor chat, Word ya kisi bhare hue box mein
+ho to galti se wahan number na chhape, isliye tab sirf popup aata hai aur OTP copy ho jata hai:
+- OTP box pe click karke `Ctrl+V` dabao, ya
+- `Ctrl+Shift+O` dabao, OTP cursor wale box mein type ho jayega (5 min tak).
+
+Auto-fill band karna ho to: tray icon pe right-click → **Auto-fill OTP into empty text box** ka tick hatao.
 2 minute baad OTP clipboard se apne aap hat jata hai.
 
 ## Problem aaye to
 | Problem | Fix |
 |---|---|
+| OTP box mein apne aap nahi aaya | OTP mangwane se *pehle* box pe click karo. Box khaali hona chahiye. Kuch apps mein auto-fill nahi chalta, wahan `Ctrl+V` karo |
 | "Smart App Control blocked a file" | Pehle files unblock karo (Step 1 ka note) ya Git se clone karo. Phir bhi block ho to: Windows Security → App & browser control → Smart App Control settings → **Off** |
 | Test OTP pe "Couldn't reach" | Same Wi-Fi? PC app tray mein chal raha hai? Firewall: Windows Security → Firewall → Allow an app → OtpBridge (Private ✓) |
 | Real OTP nahi aata, test aata hai | Phone pe Autostart / battery "No restrictions" set karo |

@@ -9,6 +9,7 @@ sealed class Config
 {
     public string Key { get; set; } = "";
     public int Port { get; set; } = Protocol.DefaultPort;
+    public bool AutoFill { get; set; } = true;
 
     [JsonIgnore] public bool IsNew { get; private set; }
     [JsonIgnore] public byte[] KeyBytes => Convert.FromBase64String(Key);

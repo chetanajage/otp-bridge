@@ -10,7 +10,7 @@ $env:DOTNET_NOLOGO = '1'
 
 $InstallDir = 'C:\Tools\OtpBridge'
 $Exe = Join-Path $InstallDir 'OtpBridge.exe'
-$ApkUrl = 'https://github.com/chetanajage/otp-bridge/releases/download/v0.1.0/OtpBridge.apk'
+$ApkUrl = 'https://github.com/chetanajage/otp-bridge/releases/latest/download/OtpBridge.apk'
 $Project = Join-Path $PSScriptRoot 'windows\OtpBridge\OtpBridge.csproj'
 
 function Step($n, $text) { Write-Host "`n[$n/6] $text" -ForegroundColor Cyan }

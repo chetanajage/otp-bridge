@@ -24,10 +24,17 @@ sealed class TrayApp : ApplicationContext
         _lastItem.Click += (_, _) => { if (CurrentOtp() is { } otp) CopyToClipboard(otp); };
         var startupItem = new ToolStripMenuItem("Start with Windows") { CheckOnClick = true, Checked = Startup.Enabled };
         startupItem.CheckedChanged += (_, _) => Startup.Enabled = startupItem.Checked;
+        var autoFillItem = new ToolStripMenuItem("Auto-fill OTP into empty text box") { CheckOnClick = true, Checked = _config.AutoFill };
+        autoFillItem.CheckedChanged += (_, _) =>
+        {
+            _config.AutoFill = autoFillItem.Checked;
+            _config.Save();
+        };
 
         var menu = new ContextMenuStrip();
         menu.Items.Add(_lastItem);
         menu.Items.Add("Pair phone…", null, (_, _) => ShowPairing());
+        menu.Items.Add(autoFillItem);
         menu.Items.Add(startupItem);
         menu.Items.Add(new ToolStripSeparator());
         menu.Items.Add("Exit", null, (_, _) => ExitThread());
@@ -57,7 +64,7 @@ sealed class TrayApp : ApplicationContext
         catch (SocketException e) { Notify("OTP Bridge can't start", $"Port {_config.Port} or {Protocol.DiscoveryPort} is busy: {e.Message}"); }
     }
 
-    void OnOtp(OtpMessage m)
+    async void OnOtp(OtpMessage m)
     {
         _lastOtp = m.Otp;
         _lastAt = DateTime.Now;
@@ -65,15 +72,15 @@ sealed class TrayApp : ApplicationContext
         _lastItem.Text = $"Last OTP: {m.Otp} (click to copy)";
         _lastItem.Enabled = true;
         var from = string.IsNullOrEmpty(m.From) ? "" : $"{m.From} • ";
-        if (m.Type == "test")
-        {
-            _pairForm?.Close();
+        if (m.Type == "test") _pairForm?.Close();
+
+        var filled = _config.AutoFill && await Task.Run(() => AutoFill.TryFill(m.Otp));
+        if (filled)
+            Notify($"OTP {m.Otp} filled ✓", $"{from}Typed into the box where your cursor was.");
+        else if (m.Type == "test")
             Notify($"Test OTP {m.Otp} received ✓", "Phone is connected. Real OTPs will show up like this.");
-        }
         else
-        {
-            Notify($"OTP {m.Otp}", $"{from}Copied. Paste with Ctrl+V or type it with Ctrl+Shift+O.");
-        }
+            Notify($"OTP {m.Otp}", $"{from}Copied. Click the OTP box and press Ctrl+V (or Ctrl+Shift+O).");
     }
 
     string? CurrentOtp() => _lastOtp is not null && DateTime.Now - _lastAt < OtpLifetime ? _lastOtp : null;

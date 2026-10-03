@@ -1,10 +1,10 @@
 # OTP Bridge
 
-Android phone pe aaya OTP SMS turant Windows PC pe: popup + clipboard + `Ctrl+Shift+O` se type.
+Android phone pe aaya OTP SMS turant Windows PC pe, seedha cursor wale box mein (Mac jaisa auto-fill).
 Phone Link ki zaroorat nahi. Phone aur PC same Wi-Fi pe hone chahiye.
 
 ```
-SMS → Android app (OTP nikalta hai) ──AES-256-GCM, Wi-Fi──▶ Windows tray app → popup + clipboard
+SMS → Android app (OTP nikalta hai) ──AES-256-GCM, Wi-Fi──▶ Windows tray app → cursor wale box mein auto-fill
 ```
 
 ## Setup

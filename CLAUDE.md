@@ -13,10 +13,9 @@ The owner is Chetan (GitHub: chetanajage). He talks in Hinglish, so reply in Hin
 - Protocol: TCP 47321 carries one base64 line, `nonce12 + GCM ciphertext + tag`, with the JSON `{type,otp,from,ts}`. The PC answers `OK`/`ERR`.
   UDP 47322 handles discovery: `OTPBRIDGE_DISCOVER <keyId>` → `OTPBRIDGE_HERE <keyId> <port>`. `Protocol.kt` and `Protocol.cs` must stay in sync.
 
-## Status (2026-10-03)
-- Step 1 (phone app + tray app) is done: built on a Mac, 11 extractor tests pass, and the Kotlin → .NET e2e test (incl. UDP discovery) passes.
-- **Never run on real Windows or a real phone yet.** First job on Windows: build, run, pair, test.
-- Release v0.1.0 on GitHub has `OtpBridge.exe` + `OtpBridge.apk`.
+## Status (2026-10-04)
+- Step 1 (phone app + tray app) is done and works on the real Windows PC + phone (2026-10-04). v0.2.0 adds auto-fill: on arrival the OTP is typed into the focused element if it is an empty, enabled, non-password UIA Edit (`AutoFill.cs`); otherwise clipboard + popup.
+- Latest GitHub release (v0.2.0) has `OtpBridge.exe` + `OtpBridge.apk`; links use `releases/latest/download/...`.
 - Next: Step 2 is a Chrome/Edge extension that shows a "📱 From Phone: 123456" suggestion under OTP fields.
   The plan is for the tray app to expose the latest OTP on a localhost-only endpoint for the extension. Step 3 is a floating "Fill" button for non-browser apps.
 
