@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Runs the real OtpServer cross-platform so the Android protocol can be tested from a Mac/Linux box. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../OtpBridge/Protocol.cs" Link="Protocol.cs" />
+    <Compile Include="../OtpBridge/OtpServer.cs" Link="OtpServer.cs" />
+  </ItemGroup>
+
+</Project>
