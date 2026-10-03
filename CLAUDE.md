@@ -29,7 +29,7 @@ Claude can:
 - Check firewall: `Get-NetFirewallApplicationFilter -Program C:\Tools\OtpBridge\OtpBridge.exe`; admin fix:
   `New-NetFirewallRule -DisplayName OtpBridge -Direction Inbound -Program C:\Tools\OtpBridge\OtpBridge.exe -Action Allow -Profile Private`
 - Verify listening: `Get-NetTCPConnection -LocalPort 47321 -State Listen`
-- Download APK: `gh release download v0.1.0 -p OtpBridge.apk -D $HOME\Downloads`
+- One-click setup for humans: `setup.bat` → `setup.ps1` (installs SDK, builds, firewall, network profile, shortcut, launches). Keep it ASCII-only (PS 5.1 reads it as ANSI).
 
 The human must do these (ask them, give exact clicks from SETUP.md):
 - `gh auth login` (interactive browser login) and any UAC/admin prompt

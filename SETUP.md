@@ -4,75 +4,49 @@ Pehle PC (Windows) setup karo, phir phone (Android). Total 10 minute lagenge.
 
 **Zaroori:** phone aur PC same Wi-Fi pe hone chahiye.
 
-## Download
-Repo ke **Releases** page pe (right side → Releases → latest) do files hain:
-- `OtpBridge.exe`: Windows PC ke liye
-- `OtpBridge.apk`: Android phone ke liye
+## Asaan setup: ek double-click (recommended)
 
-Repo private hai, isliye download ke liye GitHub login chahiye. Dost ke paas access nahi hai to tu download karke
-WhatsApp / Google Drive / pendrive se bhej de.
+**Step 1: Repo PC pe lao.** Dono mein se koi ek tareeka:
 
-## Ya phir: GitHub se clone karke khud build karo (Windows)
+- **Git se clone** (PowerShell mein):
+  ```powershell
+  winget install --id Git.Git -e
+  ```
+  PowerShell band karke dobara kholo, phir:
+  ```powershell
+  cd $HOME\Documents
+  git clone https://github.com/chetanajage/otp-bridge.git
+  ```
+- **Bina Git ke:** https://github.com/chetanajage/otp-bridge kholo → hara **Code** button → **Download ZIP** →
+  ZIP pe right-click → **Extract All**.
 
-Release se exe download kar li hai to ye section skip karo, seedha "Windows setup" pe jao.
+**Step 2: `setup.bat` pe double-click karo.**
+Repo folder (`Documents\otp-bridge`) kholo aur `setup.bat` pe double-click karo.
+- "Windows protected your PC" aaye to **More info → Run anyway**.
+- Admin popup (UAC) aaye to **Yes**.
 
-Saare commands **PowerShell** mein chalane hain: Start → "PowerShell" type karo → Enter.
+Ek PowerShell window khulegi aur khud ye 6 kaam karegi:
+1. .NET 8 SDK install (agar pehle se nahi hai)
+2. `OtpBridge.exe` build karke `C:\Tools\OtpBridge` mein rakhna
+3. Firewall mein allow karna
+4. Wi-Fi Public ho to poochega "Private kar dein? (Y/n)". Ghar ya office ka Wi-Fi hai to **Y** dabao.
+5. Desktop pe "OTP Bridge" shortcut banana
+6. App start karna. Pairing window (QR code) khul jayegi.
 
-**1. Git aur GitHub CLI install karo** (ek baar)
-```powershell
-winget install --id Git.Git -e
-winget install --id GitHub.cli -e
-```
-Install hone ke baad PowerShell **band karke dobara kholo**.
+Pehli baar 5-10 minute lag sakte hain. Window band mat karna. Kahin laal **XX** error aaye to us window ka
+screenshot bhejo.
 
-**2. GitHub login karo** (repo private hai)
-```powershell
-gh auth login
-```
-Options: `GitHub.com` → `HTTPS` → `Y` → `Login with a web browser`. Screen pe ek code aayega, browser mein paste karke
-login karo. (Jis account se login karoge use repo ka access hona chahiye.)
+**Step 3: Phone.** Window ke end mein phone ke steps bhi likhe aayenge. Neeche **Android setup** section dekho.
+APK ka seedha link (phone ke browser mein kholo):
+https://github.com/chetanajage/otp-bridge/releases/download/v0.1.0/OtpBridge.apk
 
-**3. Repo clone karo**
-```powershell
-cd $HOME\Documents
-gh repo clone chetanajage/otp-bridge
-cd otp-bridge
-```
+**Baad mein update karna ho to:** repo folder mein `git pull` (ZIP wale naya ZIP download karein), phir `setup.bat`
+dobara double-click karo. Pairing waise hi rahegi.
 
-**4. .NET 8 SDK install karo** (ek baar, exe build karne ke liye)
-```powershell
-winget install Microsoft.DotNet.SDK.8
-```
-Phir se PowerShell band karke kholo, aur `cd $HOME\Documents\otp-bridge`.
+## Manual Windows setup (setup.bat na chale tab)
 
-**5. Exe build karo, seedha `C:\Tools\OtpBridge` mein**
-```powershell
-dotnet publish windows\OtpBridge -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o C:\Tools\OtpBridge
-```
-2-3 minute lagenge. End mein `OtpBridge -> C:\Tools\OtpBridge\` dikhega.
+Release page se exe download karo: https://github.com/chetanajage/otp-bridge/releases/latest → `OtpBridge.exe`.
 
-**6. Phone ke liye APK download karo**
-```powershell
-gh release download v0.1.0 -p OtpBridge.apk -D $HOME\Downloads
-```
-APK `Downloads` folder mein aa jayega, isko phone pe bhejo (WhatsApp / USB / Drive).
-
-**7. App chalao**
-```powershell
-C:\Tools\OtpBridge\OtpBridge.exe
-```
-Ab neeche "Windows setup" ke **Step 3 (Firewall)** se aage karo. Step 1 build ne kar diya, aur khud build ki hui exe pe
-Step 2 wali blue warning aksar nahi aati.
-
-**Baad mein update karna ho to:** tray → Exit, phir
-```powershell
-cd $HOME\Documents\otp-bridge
-git pull
-dotnet publish windows\OtpBridge -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o C:\Tools\OtpBridge
-C:\Tools\OtpBridge\OtpBridge.exe
-```
-
-## Windows setup (step by step)
 
 **Step 1: Exe sahi jagah rakho**
 1. File Explorer kholo → `C:\` drive → naya folder banao `Tools`, uske andar `OtpBridge`.

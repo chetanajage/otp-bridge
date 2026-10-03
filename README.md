@@ -9,7 +9,8 @@ SMS → Android app (OTP nikalta hai) ──AES-256-GCM, Wi-Fi──▶ Windows 
 
 ## Setup
 
-Install aur Windows/Android ke step-by-step instructions: **[SETUP.md](SETUP.md)**
+Windows pe: repo clone karo → `setup.bat` pe double-click → sab apne aap install ho jayega.
+Poore step-by-step instructions (Windows + Android): **[SETUP.md](SETUP.md)**
 
 ## Build (developers)
 - Windows: `cd windows && dotnet publish OtpBridge -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o ../dist/windows`
