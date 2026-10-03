@@ -12,6 +12,66 @@ Repo ke **Releases** page pe (right side → Releases → latest) do files hain:
 Repo private hai, isliye download ke liye GitHub login chahiye. Dost ke paas access nahi hai to tu download karke
 WhatsApp / Google Drive / pendrive se bhej de.
 
+## Ya phir: GitHub se clone karke khud build karo (Windows)
+
+Release se exe download kar li hai to ye section skip karo, seedha "Windows setup" pe jao.
+
+Saare commands **PowerShell** mein chalane hain: Start → "PowerShell" type karo → Enter.
+
+**1. Git aur GitHub CLI install karo** (ek baar)
+```powershell
+winget install --id Git.Git -e
+winget install --id GitHub.cli -e
+```
+Install hone ke baad PowerShell **band karke dobara kholo**.
+
+**2. GitHub login karo** (repo private hai)
+```powershell
+gh auth login
+```
+Options: `GitHub.com` → `HTTPS` → `Y` → `Login with a web browser`. Screen pe ek code aayega, browser mein paste karke
+login karo. (Jis account se login karoge use repo ka access hona chahiye.)
+
+**3. Repo clone karo**
+```powershell
+cd $HOME\Documents
+gh repo clone chetanajage/otp-bridge
+cd otp-bridge
+```
+
+**4. .NET 8 SDK install karo** (ek baar, exe build karne ke liye)
+```powershell
+winget install Microsoft.DotNet.SDK.8
+```
+Phir se PowerShell band karke kholo, aur `cd $HOME\Documents\otp-bridge`.
+
+**5. Exe build karo, seedha `C:\Tools\OtpBridge` mein**
+```powershell
+dotnet publish windows\OtpBridge -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o C:\Tools\OtpBridge
+```
+2-3 minute lagenge. End mein `OtpBridge -> C:\Tools\OtpBridge\` dikhega.
+
+**6. Phone ke liye APK download karo**
+```powershell
+gh release download v0.1.0 -p OtpBridge.apk -D $HOME\Downloads
+```
+APK `Downloads` folder mein aa jayega, isko phone pe bhejo (WhatsApp / USB / Drive).
+
+**7. App chalao**
+```powershell
+C:\Tools\OtpBridge\OtpBridge.exe
+```
+Ab neeche "Windows setup" ke **Step 3 (Firewall)** se aage karo. Step 1 build ne kar diya, aur khud build ki hui exe pe
+Step 2 wali blue warning aksar nahi aati.
+
+**Baad mein update karna ho to:** tray → Exit, phir
+```powershell
+cd $HOME\Documents\otp-bridge
+git pull
+dotnet publish windows\OtpBridge -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o C:\Tools\OtpBridge
+C:\Tools\OtpBridge\OtpBridge.exe
+```
+
 ## Windows setup (step by step)
 
 **Step 1: Exe sahi jagah rakho**
