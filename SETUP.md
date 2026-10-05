@@ -100,8 +100,14 @@ Firewall sirf Private network pe allow karta hai. Wi-Fi Public pe set ho to phon
 
 `OtpBridge.apk`: Windows Step 5 pe pairing window khuli ho tab ye karo.
 1. APK phone pe bhejo aur install karo ("Install unknown apps" allow karna padega).
+   Play Protect "unsafe app blocked" bole aur install na ho (India mein SMS permission wale apps ke saath hota hai):
+   Play Store → profile photo → **Play Protect** → ⚙️ → **Scan apps with Play Protect** off → APK install karo →
+   Play Protect wapas **on** karo.
 2. App kholo → SMS permission **Allow**.
-   Android 13+ pe permission block ho to: Settings → Apps → OTP Bridge → ⋮ → **Allow restricted settings**, phir dobara Allow.
+   WhatsApp / browser / file manager se install kiya ho to Android 13+ SMS permission block kar deta hai ("Restricted setting"):
+   Settings → Apps → OTP Bridge → ⋮ (upar right) → **Allow restricted settings** → PIN daalo → Permissions → SMS → **Allow**.
+   ⋮ mein option na dikhe to pehle ek baar SMS Allow karne ki koshish karo, "Restricted setting" aane ke baad ⋮ mein aa jata hai.
+   Ye nahi kiya to test OTP PC pe aayega lekin real OTP nahi.
 3. **Scan QR from PC** dabao → PC ka QR scan karo.
 4. **Send test OTP** dabao → PC pe "Test OTP received ✓" aana chahiye.
 5. **Allow running in background** dabao. Xiaomi/Oppo/Vivo/Realme pe Settings mein OTP Bridge ka **Autostart** bhi on karo.
@@ -124,6 +130,7 @@ Auto-fill band karna ho to: tray icon pe right-click → **Auto-fill OTP into em
 | OTP box mein apne aap nahi aaya | OTP mangwane se *pehle* box pe click karo. Box khaali hona chahiye. Kuch apps mein auto-fill nahi chalta, wahan `Ctrl+V` karo |
 | "Smart App Control blocked a file" | Pehle files unblock karo (Step 1 ka note) ya Git se clone karo. Phir bhi block ho to: Windows Security → App & browser control → Smart App Control settings → **Off** |
 | Test OTP pe "Couldn't reach" | Same Wi-Fi? PC app tray mein chal raha hai? Firewall: Windows Security → Firewall → Allow an app → OtpBridge (Private ✓) |
-| Real OTP nahi aata, test aata hai | Phone pe Autostart / battery "No restrictions" set karo |
+| Install pe "unsafe app blocked" (Play Protect) | Android setup Step 1: Play Protect thodi der off, install, phir on |
+| Real OTP nahi aata, test aata hai | 1) App info → Permissions → SMS **Allowed** hai? Grey / "Restricted" ho to ⋮ → **Allow restricted settings**, phir SMS Allow (Android setup Step 2). 2) Autostart / battery "No restrictions" (OnePlus: Battery → **Allow background activity** on). 3) Play Protect ne baad mein permission hata di ho to dobara check karo |
 | "clocks differ" message | Phone aur PC dono pe automatic time on karo |
 | Naya phone ya galat pairing | Tray → Pair phone… → "Unpair all phones", phir dobara scan |
